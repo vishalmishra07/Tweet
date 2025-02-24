@@ -12,13 +12,23 @@
   <div class="container row gap-3">
     {% for tweet in tweets %}
       <div class="card" style="width: 18rem;">
-        <img src="{{tweet.photo.url}}" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title">{{tweet.user.username}}</h5>
-          <p class="card-text">{{tweet.text}}</p>
-          <a href="{% url 'tweet_edit' tweet.id%}" class="btn btn-primary">Edit</a>
-          <a href="{% url 'tweet_delete' tweet.id%}" class="btn btn-danger">Delete</a>
+        {% comment %} <img src="{{ tweet.photo.url }}" class="card-img-top" alt="..." /> {% endcomment %}
 
+        {% if tweet.photo %}
+          <img src="{{ tweet.photo.url }}" class="card-img-top" alt="..." />
+        {% else %}
+          <!-- Optionally, display a placeholder image -->
+          <img src="/path/to/placeholder.jpg" class="card-img-top" alt="No photo available" />
+        {% endif %}
+
+        {% comment %}  {% endcomment %}
+        <div class="card-body">
+          <h5 class="card-title">{{ tweet.user.username }}</h5>
+          <p class="card-text">{{ tweet.text }}</p>
+          {% if tweet.user == user %}
+            <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+          {% endif %}
         </div>
       </div>
     {% endfor %}
