@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load form_tags %}
 
 {% block title %}
   MicroBlogging
@@ -18,16 +19,16 @@
           {% csrf_token %}
 
           <!-- Text Field -->
-          <div class="mb-3">
-            <label for="id_text" class="form-label">What's on your mind?</label>
-            <textarea id="id_text" name="text" class="form-control form-control-sm bg-dark text-light border border-secondary rounded-3 shadow-sm" rows="3" placeholder="Write your tweet..." required>{{ form.text.value }}</textarea>
-          </div>
+<div class="mb-3">
+  <label for="{{ form.text.id_for_label }}" class="form-label">What's on your mind?</label>
+  {{ form.text|add_class:"form-control form-control-sm bg-dark text-light border border-secondary rounded-3 shadow-sm" }}
+</div>
 
-          <!-- Photo Upload -->
-          <div class="mb-3">
-            <label for="id_photo" class="form-label">Upload Photo</label>
-            <input type="file" id="id_photo" name="photo" class="form-control form-control-sm bg-dark text-light border border-secondary rounded-3 shadow-sm">
-          </div>
+<!-- Photo Upload -->
+<div class="mb-3">
+  <label for="{{ form.photo.id_for_label }}" class="form-label">Upload Photo</label>
+  {{ form.photo|add_class:"form-control form-control-sm bg-dark text-light border border-secondary rounded-3 shadow-sm" }}
+</div>
 
           <!-- Submit Button -->
           <button class="btn btn-primary w-100 py-2 mt-3 rounded-pill shadow" type="submit">Submit 🥸</button>
