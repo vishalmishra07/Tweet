@@ -9,6 +9,10 @@ MicroBlogging
 
 <div class="container">
   <div class="row justify-content-center">
+    {% if query %}
+      <p class="text-center mb-4">Showing results for "{{ query }}"</p>
+    {% endif %}
+
     {% for tweet in tweets %}
       <div class="col-md-4 d-flex align-items-stretch mb-4">
         <div class="card border rounded-4 shadow-sm w-100 hover-shadow transition">
@@ -24,7 +28,6 @@ MicroBlogging
             <div class="d-flex align-items-center mb-3">
               <div class="bg-primary rounded-circle d-inline-block" style="width: 40px; height: 40px;"></div>
               <h5 class="ms-3 mb-0 text-dark">{{ tweet.user.username }}</h5>
-              
             </div>
             <p class="card-text text-secondary">{{ tweet.text }}</p>
 
@@ -41,6 +44,8 @@ MicroBlogging
           </div>
         </div>
       </div>
+    {% empty %}
+      <p class="text-center">No tweets found.</p>
     {% endfor %}
   </div>
 
@@ -57,8 +62,10 @@ MicroBlogging
     transform: translateY(-2px);
     transition: 0.3s ease-in-out;
   }
+
   .transition {
     transition: all 0.3s ease-in-out;
   }
 </style>
+
 {% endblock %}
