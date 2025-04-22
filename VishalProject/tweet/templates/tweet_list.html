@@ -1,36 +1,64 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-  chai aur tweet
+MicroBlogging
 {% endblock %}
 
 {% block content %}
-  <h1 class="text-center mt-4">Welcome to Vishal Tweet🐣🐣</h1>
+<h1 class="text-center mt-4 mb-4 fw-bold">Welcome to Tweetbar</h1>
 
-  <a class="btn btn-primary mb-4" href="{% url 'tweet_create' %}">Create a tweet</a>
-
-  <div class="container row gap-3">
+<div class="container">
+  <div class="row justify-content-center">
     {% for tweet in tweets %}
-      <div class="card" style="width: 18rem;">
-        {% comment %} <img src="{{ tweet.photo.url }}" class="card-img-top" alt="..." /> {% endcomment %}
-
-        {% if tweet.photo %}
-          <img src="{{ tweet.photo.url }}" class="card-img-top" alt="..." />
-        {% else %}
-          <!-- Optionally, display a placeholder image -->
-          <img src="/path/to/placeholder.jpg" class="card-img-top" alt="No photo available" />
-        {% endif %}
-
-        {% comment %}  {% endcomment %}
-        <div class="card-body">
-          <h5 class="card-title">{{ tweet.user.username }}</h5>
-          <p class="card-text">{{ tweet.text }}</p>
-          {% if tweet.user == user %}
-            <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
-            <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+      <div class="col-md-4 d-flex align-items-stretch mb-4">
+        <div class="card border rounded-4 shadow-sm w-100 hover-shadow transition">
+          
+          <!-- Tweet image or fallback -->
+          {% if tweet.photo %}
+            <img src="{{ tweet.photo.url }}" class="card-img-top rounded-top" alt="Tweet image">
+          {% else %}
+            <img src="https://via.placeholder.com/400x200.png?text=No+Image" class="card-img-top rounded-top" alt="No photo available">
           {% endif %}
+
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="bg-primary rounded-circle d-inline-block" style="width: 40px; height: 40px;"></div>
+              <h5 class="ms-3 mb-0 text-dark">{{ tweet.user.username }}</h5>
+            </div>
+            
+            <p class="card-text text-secondary">{{ tweet.text }}</p>
+
+            {% if tweet.user == user %}
+              <div class="d-flex justify-content-between mt-3">
+                <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                  <i class="fa-solid fa-pen-to-square"></i> Edit
+                </a>
+                <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </a>
+              </div>
+            {% endif %}
+          </div>
         </div>
       </div>
     {% endfor %}
   </div>
+
+  {% if tweets|length == 0 %}
+    <div class="alert alert-info text-center mt-5" role="alert">
+      No tweets yet. Be the first to <a href="{% url 'tweet_create' %}" class="alert-link">create one!</a>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  .hover-shadow:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px);
+    transition: 0.3s ease-in-out;
+  }
+  .transition {
+    transition: all 0.3s ease-in-out;
+  }
+</style>
 {% endblock %}

@@ -1,24 +1,43 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-  chai aur tweet
+  MicroBlogging
 {% endblock %}
 
 {% block content %}
-  <h1 class="text-center mt-4">Welcome to Vishal Tweet🐣🐣</h1>
-  <h2>
-    {% if form.instance.pk %}
-      Edit Tweet
-    {% else %}
-      Create Tweet
-    {% endif %}
-    
-    <form method="post" enctype="multipart/form-data" class="form">
-      {% csrf_token %}
-      
-      {{ form.as_p }}
-      <button class="btn btn-warning" type="submit">Submit🥸</button>
-    </form>
-    <a href="{% url 'tweet_list' %}">Back to tweet list</a>
+  <h1 class="text-center mt-4 mb-2 animate__animated animate__fadeIn text-light">Welcome to Tweet 🐣🐣</h1>
+
+  <h2 class="text-center mb-4 animate__animated animate__fadeIn text-secondary">
+    {% if form.instance.pk %}Edit Tweet{% else %}Create Tweet{% endif %}
   </h2>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data" class="bg-dark text-light p-4 rounded-4 shadow-lg animate__animated animate__fadeInUp">
+          {% csrf_token %}
+
+          <!-- Text Field -->
+          <div class="mb-3">
+            <label for="id_text" class="form-label">What's on your mind?</label>
+            <textarea id="id_text" name="text" class="form-control form-control-sm bg-dark text-light border border-secondary rounded-3 shadow-sm" rows="3" placeholder="Write your tweet..." required>{{ form.text.value }}</textarea>
+          </div>
+
+          <!-- Photo Upload -->
+          <div class="mb-3">
+            <label for="id_photo" class="form-label">Upload Photo</label>
+            <input type="file" id="id_photo" name="photo" class="form-control form-control-sm bg-dark text-light border border-secondary rounded-3 shadow-sm">
+          </div>
+
+          <!-- Submit Button -->
+          <button class="btn btn-primary w-100 py-2 mt-3 rounded-pill shadow" type="submit">Submit 🥸</button>
+        </form>
+
+        <!-- Back Link -->
+        <div class="text-center mt-3">
+          <a href="{% url 'tweet_list' %}" class="btn btn-outline-light w-100 py-2 rounded-pill">Back to Tweet List</a>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

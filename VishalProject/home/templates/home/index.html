@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home - Tweetbar{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Welcome to Tweetbar 🐤</h1>
+    <p class="lead">Your place to post short thoughts and share ideas!</p>
+    <a class="btn btn-primary mt-3" href="{% url 'tweet_list' %}">Go to Tweets</a>
+</div>
+{% endblock %}

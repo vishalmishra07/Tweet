@@ -23,8 +23,9 @@ from django.conf.urls.static import static
 from django.contrib.auth.urls import views as auth_views
 
 urlpatterns = [
+    path('', include('home.urls')),
     path('admin/', admin.site.urls),
-    path('', include('tweet.urls')),
+    path('tweet/', include('tweet.urls')),#Able to include bcz in settings we already informed djnago about new app="tweet";(Control Transfer)
     path('accounts/', include('django.contrib.auth.urls')),
     
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
